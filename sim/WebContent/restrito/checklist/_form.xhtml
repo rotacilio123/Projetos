@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+        <p:messages autoUpdate="true" closable="true" />
+        <h:form styleClass="form-horizontal">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <h:outputLabel for="chli_descricao" value="Descrição:" styleClass="control-label" />
+                        <h:inputText id="chli_descricao" value="#{checkListBean.descricao}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="A descrição é obrigatória!"
+                                     pt:placeholder="Insira uma descrição para o Check List"
+                                     maxlength="100"
+                                     disabled="#{param.bloquear_campos}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-5">
+                        <h:outputLabel for="familias" value="Famílias:" />
+                        <h:selectManyListbox id="familias" value="#{checkListBean.familiasNaoAssociadas}" styleClass="form-control" converter="familiaConverter" disabled="#{param.bloquear_campos}" >
+                            <f:selectItems value="#{checkListBean.familias}" var="familia" itemLabel="#{familia.codigo}" itemValue="#{familia}" />
+                        </h:selectManyListbox>
+                    </div>
+                    <div class="col-lg-2 text-center buttons-multiselect">
+                        <h:panelGroup>
+                            <h:commandButton value="→" action="#{checkListBean.associarFamilia()}" styleClass="btn btn-primary" disabled="#{param.bloquear_campos}" >
+                                <f:ajax execute="familias" render="familias familias_associadas"/>
+                            </h:commandButton>
+                            <h:commandButton value="←" action="#{checkListBean.desassociarFamilia()}" styleClass="btn btn-default" disabled="#{param.bloquear_campos}" >
+                                <f:ajax execute="familias_associadas" render="familias familias_associadas"/>
+                            </h:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="col-lg-5">
+                        <h:outputLabel for="familias_associadas" value="Famílias Associadas:" />
+                        <h:selectManyListbox id="familias_associadas" value="#{checkListBean.familiasAssociadas}" styleClass="form-control" converter="familiaConverter" disabled="#{param.bloquear_campos}" >
+                            <f:selectItems value="#{checkListBean.familiasAssociadas}" var="familiaAssociada" itemLabel="#{familiaAssociada.codigo}" itemValue="#{familiaAssociada}" />
+                        </h:selectManyListbox>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-5">
+                        <h:outputLabel for="itens" value="Itens:" />
+                        <h:selectManyListbox id="itens" value="#{checkListBean.itensNaoAssociados}" styleClass="form-control" converter="itemConverter" disabled="#{param.bloquear_campos}" >
+                            <f:selectItems value="#{checkListBean.itens}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+                        </h:selectManyListbox>
+                    </div>
+                    <div class="col-lg-2 text-center buttons-multiselect">
+                        <h:panelGroup>
+                            <h:commandButton value="→" action="#{checkListBean.associarItem()}" styleClass="btn btn-primary" disabled="#{param.bloquear_campos}" >
+                                <f:ajax execute="itens" render="itens itens_associados"/>
+                            </h:commandButton>
+                            <h:commandButton value="←" action="#{checkListBean.desassociarItem()}" styleClass="btn btn-default" disabled="#{param.bloquear_campos}" >
+                                <f:ajax execute="itens_associados" render="itens itens_associados"/>
+                            </h:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="col-lg-5">
+                        <h:outputLabel for="itens_associados" value="Itens Associados:" />
+                        <h:selectManyListbox id="itens_associados" value="#{checkListBean.itensAssociados}" styleClass="form-control" converter="itemConverter" disabled="#{param.bloquear_campos}" >
+                            <f:selectItems value="#{checkListBean.itensAssociados}" var="itemAssociado" itemLabel="#{itemAssociado.descricao}" itemValue="#{itemAssociado}" />
+                        </h:selectManyListbox>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="pull-right">
+                            <h:commandButton value="Salvar" action="#{checkListBean.salvarCheckList()}" styleClass="btn btn-primary" disabled="#{param.bloquear_campos}" />
+                            <p:spacer width="10" />
+                            <h:commandButton value="Cencelar" action="/restrito/checklist/index" styleClass="btn btn-default" immediate="true" disabled="#{param.bloquear_campos}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:composition>
+</html>

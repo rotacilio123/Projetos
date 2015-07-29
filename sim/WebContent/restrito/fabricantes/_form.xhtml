@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+        <h:form styleClass="form-horizontal">
+            <div class="panel-body">
+                <p:messages autoUpdate="true" closable="true" />
+                <h:inputHidden value="#{fabricanteBean.fabricante.id}" />
+                <div class="form-group">
+                    <h:outputLabel for="fabr_nome" value="Nome:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="fabr_nome" value="#{fabricanteBean.fabricante.nome}"
+                                     styleClass="form-control" required="true"
+                                     requiredMessage="O nome é obrigatório!"
+                                     pt:placeholder="Informe o nome do fabricante"/>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="pull-right">
+                            <h:commandButton action="#{fabricanteBean.salvarFabricante()}" value="Salvar" styleClass="btn btn-primary" />
+                            <p:spacer width="10" />
+                            <h:commandButton action="/restrito/fabricantes/index" value="Cancelar" immediate="true" styleClass="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:composition>
+</html>

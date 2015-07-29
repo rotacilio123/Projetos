@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/layout/main.xhtml">
+        <ui:define name="breadcrumb">
+            <h:form>
+                <ol class="breadcrumb">
+                    <li><h:commandLink action="/restrito/principal"><i class="fa fa-home"></i>Home</h:commandLink></li>
+                    <li><i class="fa fa-list-alt"></i>Cadastros</li>
+                    <li><i class="fa fa-wrench"></i>Check List</li>
+                    <li><i class="fa fa-bars"></i>Listagem</li>
+                </ol>
+            </h:form>
+        </ui:define>
+        <ui:define name="titulo">Listagem de Check List</ui:define>
+        <ui:define name="actions">
+            <h:form>
+                <ul class="nav nav-pills">
+                    <li><h:commandLink action="/restrito/checklist/create"><i class="fa fa-plus"></i> Novo</h:commandLink></li>
+                </ul>
+            </h:form>
+        </ui:define>
+        <ui:define name="corpo">
+            <div class="panel-body">
+                <p:messages autoUpdate="true" closable="true" />
+                <h:form id="form-listagem">
+                    <h:dataTable value="#{checkListBean.checkLists}" var="checkList" styleClass="table table-striped table-hover">
+                        <h:column headerClass="col-lg-11">
+                            <f:facet name="header">Descrição</f:facet>
+                            <h:outputText value="#{checkList}" />
+                        </h:column>
+                        <h:column headerClass="col-lg-1">
+                            <h:commandLink action="/restrito/checklist/view" title="Visualizar">
+                                <h:graphicImage library="img" name="visualizar.png" width="22" height="22" />
+                                <f:param name="chli_descricao" value="#{checkList}" />
+                                <f:param name="bloquear_campos" value="#{true}" />
+                            </h:commandLink>
+                            <p:spacer width="10" />
+                            <h:commandLink action="#{checkListBean.excluirCheckList()}" title="Excluir"
+                                             onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                                       return false;">
+                                <f:ajax execute="@this" render=":form-listagem" />
+                                <h:graphicImage library="img" name="excluir.png" width="22" height="22" />
+                                <f:param name="chli_descricao" value="#{checkList}" />
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

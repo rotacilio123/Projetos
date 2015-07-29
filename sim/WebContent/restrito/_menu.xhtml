@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:if="http://www.springframework.org/security/facelets/tags">
+    <ui:composition>
+        <h:form>
+            <ul class="menu-container">
+                <li>
+                    <h:outputLink value="javascript:void(0)">Cadastros</h:outputLink>
+                    <ul class="submenu-container">
+                        <li><h:commandLink action="/restrito/empresas/index" value="Empresas" /></li>
+                        <li><h:commandLink action="/restrito/fabricantes/index" value="Fabricantes" /></li>
+                        <li><h:commandLink action="/restrito/linhas/index" value="Linhas" /></li>
+                        <li><h:commandLink action="/restrito/locais/index" value="Locais" /></li>
+                        <li><h:commandLink action="/restrito/postos/index" value="Postos" /></li>
+                        <li><h:commandLink action="/restrito/setores/index" value="Setores" /></li>
+                    </ul>
+                </li>
+                <li>
+                    <h:outputLink value="javascript:void(0)">Manutenções</h:outputLink>
+                    <ul class="submenu-container">
+                        <li><h:commandLink action="/restrito/maquinas/index" value="Máquinas" /></li>
+                        <li><h:commandLink action="/restrito/familias/index" value="Famílias" /></li>
+                        <li><h:commandLink action="/restrito/checklist/index" value="Check List" /></li>
+                        <li><h:commandLink action="/restrito/itens/index" value="Itens" /></li>
+                        <li><h:commandLink action="/restrito/manutencoes_corretivas/index" value="Manutenções Corretivas" /></li>
+                    </ul>
+                </li>
+                <li>
+                    <h:outputLink value="javascript:void(0)">Administração</h:outputLink>
+                    <ul class="submenu-container">
+                        <li><h:commandLink action="/restrito/usuarios/index" value="Usuários" /></li>
+                        <li><h:commandLink action="/restrito/perfis/index" value="Perfis" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </h:form>
+    </ui:composition>
+</html>

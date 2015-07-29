@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+        <h:form styleClass="form-horizontal">
+            <div class="panel-body">
+                <p:messages autoUpdate="true" closable="true" />
+                <h:inputHidden value="#{maquinaBean.maquina.id}" />
+                <legend>Informações do Equipamento</legend>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_modelo" value="Modelo:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:inputText id="maqu_modelo" value="#{maquinaBean.maquina.modelo}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="O modelo é obrigatório!"
+                                     pt:placeholder="Informe o modelo do equipamento"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_num_serie" value="Número de Série:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:inputText id="maqu_num_serie" value="#{maquinaBean.maquina.numeroDeSerie}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="O número de série é obrigatório!"
+                                     pt:placeholder="Informe o número de série do equipamento"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_descricao" value="Descrição:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:inputText id="maqu_descricao" value="#{maquinaBean.maquina.descricao}" styleClass="form-control"
+                                     pt:placeholder="Informe a descrição do equipamento"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_dt_fabricacao" value="Data de Fabricação:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-4">
+                        <h:inputText id="maqu_dt_fabricacao" value="#{maquinaBean.maquina.dataFabricacao}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="A data de fabricação é obrigatória!"
+                                     pt:placeholder="Informe a data de fabricação">
+                            <f:convertDateTime for="java.util.Date" timeZone="America/Manaus" />
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_dt_instalacao" value="Data de Instalação:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-4">
+                        <h:inputText id="maqu_dt_instalacao" value="#{maquinaBean.maquina.dataInstalacao}" styleClass="form-control"
+                                     pt:placeholder="Informe a data de instalação">
+                            <f:convertDateTime for="java.util.Date" timeZone="America/Manaus" />
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_periodo_manutencao" value="Período de Manutenção:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-4">
+                        <h:inputText id="maqu_periodo_manutencao" value="#{maquinaBean.maquina.periodoManutencao}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="O período de manutenção é obrigatório!"
+                                     pt:placeholder="Informe o período de manutenção do equipamento" >
+                            <f:convertNumber integerOnly="true" />
+                        </h:inputText>
+                        <div class="checkbox-inline">
+                            <h:outputLabel>
+                                <h:selectBooleanCheckbox value="#{maquinaBean.maquina.ativa}" required="true" requiredMessage="O status do Equipamento é obrigatório!" />
+                                Ativa
+                            </h:outputLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <legend>Informações da Localização</legend>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_loca_id" value="Local:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:selectOneMenu id="maqu_loca_id" value="#{maquinaBean.maquina.local}" styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="A localização é obrigatória!"
+                                         converter="localConverter">
+                            <f:selectItem itemLabel="-- Selecione um Item --" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{maquinaBean.locais}" var="local" itemLabel="#{local.codigo} - #{local.descricao}" itemValue="#{local}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_post_id" value="Posto:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:selectOneMenu id="maqu_post_id" value="#{maquinaBean.maquina.posto}" styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="O posto é obrigatório!"
+                                         converter="postoConverter">
+                            <f:selectItem itemLabel="-- Selecione um Item --" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{maquinaBean.postos}" var="posto" itemLabel="#{posto.linha.nome} - #{posto.descricao}" itemValue="#{posto}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_fami_id" value="Família:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:selectOneMenu id="maqu_fami_id" value="#{maquinaBean.maquina.familia}" styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="A família é obrigatória!"
+                                         converter="familiaConverter"
+                                         valueChangeListener="#{maquinaBean.carregarItens}"
+                                         hideNoSelectionOption="true">
+                            <f:selectItem itemLabel="-- Selecione um Item --" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{maquinaBean.familias}" var="familia" itemLabel="#{familia.codigo}" itemValue="#{familia}" />
+                            <f:ajax execute="@this" render="itens_disponiveis itens_associados" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_ordem" value="Ordem:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-3">
+                        <h:inputText id="maqu_ordem" value="#{maquinaBean.maquina.ordem}" styleClass="form-control"
+                                     required="true"
+                                     requiredMessage="A ordem é obrigatória!"
+                                     pt:placeholder="Informe a ordem do equipamento">
+                            <f:convertNumber integerOnly="true" />
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_fabr_id" value="Fabricante:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-6">
+                        <h:selectOneMenu id="maqu_fabr_id" value="#{maquinaBean.maquina.fabricante}" styleClass="form-control"
+                                         required="true"
+                                         requiredMessage="O fabricante é obrigatório!"
+                                         converter="fabricanteConverter">
+                            <f:selectItem itemLabel="-- Selecione um Item --" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{maquinaBean.fabricantes}" var="fabricante" itemLabel="#{fabricante.nome}" itemValue="#{fabricante}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+
+                <legend>Associar Itens</legend>
+                <div class="form-group">
+                    <div class="col-lg-5">
+                        <h:outputLabel for="itens_disponiveis" value="Itens Disponíveis:" />
+                        <h:selectManyListbox id="itens_disponiveis" value="#{maquinaBean.checkListsAux}" styleClass="form-control" converter="checkListConverter">
+                            <f:selectItems value="#{maquinaBean.checkListsNaoAssociados}" var="checkList" itemLabel="#{checkList.item.descricao}" itemValue="#{checkList}" />
+                        </h:selectManyListbox>
+                    </div>
+                    <div class="col-lg-2 text-center buttons-multiselect">
+                        <h:panelGroup>
+                            <h:commandButton value="→" action="#{maquinaBean.associarItens()}" styleClass="btn btn-primary">
+                                <f:ajax execute="itens_disponiveis" render="itens_disponiveis itens_associados"/>
+                            </h:commandButton>
+                            <h:commandButton value="←" action="#{maquinaBean.desassociarItens()}" styleClass="btn btn-default">
+                                <f:ajax execute="itens_associados" render="itens_disponiveis itens_associados"/>
+                            </h:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="col-lg-5">
+                        <h:outputLabel for="itens_associados" value="Itens Associados:" />
+                        <h:selectManyListbox id="itens_associados" value="#{maquinaBean.checkListsAux}" styleClass="form-control" converter="checkListConverter">
+                            <f:selectItems value="#{maquinaBean.checkListsAssociados}" var="checkListAssociado" itemLabel="#{checkListAssociado.item.descricao}" itemValue="#{checkListAssociado}" />
+                        </h:selectManyListbox>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="pull-right">
+                            <h:commandButton action="#{maquinaBean.salvarMaquina()}" value="Salvar" styleClass="btn btn-primary" />
+                            <p:spacer width="10" />
+                            <h:commandButton action="/restrito/maquinas/index" value="Cancelar" immediate="true" styleClass="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:composition>
+</html>

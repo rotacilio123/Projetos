@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/layout/main.xhtml">
+	<ui:define name="breadcrumb">
+		<h:form>
+			<ol class="breadcrumb">
+				<li><h:commandLink action="/restrito/principal">
+						<i class="fa fa-home"></i>Home</h:commandLink></li>
+				<li><i class="fa fa-list-alt"></i>Manutenções</li>
+				<li><i class="fa fa-wrench"></i>Corretivas</li>
+				<li><i class="fa fa-bars"></i>Listagem</li>
+			</ol>
+		</h:form>
+	</ui:define>
+	<ui:define name="titulo">Listagem de Máquinas</ui:define>
+	<ui:define name="actions">
+		<h:form>
+			<ul class="nav nav-pills">
+				<li><h:outputLink styleClass="btn-search-grid">
+						<i class="fa fa-search"></i> Buscar Máquinas</h:outputLink></li>
+			</ul>
+		</h:form>
+	</ui:define>
+	<ui:define name="corpo">
+		<div class="panel-body">
+			<p:messages autoUpdate="true" closable="true" />
+			<!--                <div id="areaBusca">
+                                    <ui:include src="_search.xhtml" />
+                                </div>-->
+			<h:form id="form-listagem">
+				<h:dataTable value="#{manutencaoCorretivaBean.maquinas}"
+					var="maquina" styleClass="table table-striped table-hover">
+					<h:column headerClass="col-lg-1 col-md-1">
+						<h:graphicImage library="img"
+							name="maquina_online_#{maquina.ativa}.png" width="22" height="22"
+							title="#{maquina.ativa ? 'Ativa' : 'Inativa'}"
+							styleClass="img-responsive center-block" />
+					</h:column>
+					<h:column headerClass="col-lg-3 col-md-3">
+						<f:facet name="header">Modelo</f:facet>
+						<h:outputText value="#{maquina.modelo}" />
+					</h:column>
+					<h:column headerClass="col-lg-3 col-md-3">
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{maquina.descricao}" />
+					</h:column>
+					<h:column headerClass="col-lg-2 col-md-2">
+						<f:facet name="header">Linha</f:facet>
+						<h:outputText value="#{maquina.posto.linha.nome}" />
+					</h:column>
+					<h:column headerClass="col-lg-2 col-md-2">
+						<f:facet name="header">Posto</f:facet>
+						<h:outputText value="#{maquina.posto.descricao}" />
+					</h:column>
+					<h:column headerClass="col-lg-1 col-md-1">
+						<h:commandLink action="/restrito/manutencoes_corretivas/create"
+							title="Nova Manutenção Corretiva">
+							<h:graphicImage library="img" name="manutencao_corretiva.png"
+								width="22" height="22" />
+							<f:param name="maqu_id" value="#{maquina.id}" />
+						</h:commandLink>
+						<p:spacer width="10" />
+						<h:commandLink title="Visualizar Manutenções Corretivas" action="#{manutencaoCorretivaBean.carregarManutencoesCorretivas()}">
+							<h:graphicImage library="img" name="visualizar_manutencoes.png"
+								width="22" height="22" />
+							<f:ajax render=":form-listagem-corretivas" />
+							<f:param name="maqu_id" value="#{maquina.id}" />
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</div>
+		
+		<ui:include
+			src="/restrito/manutencoes_corretivas/_modal_manutencoes_corretivas.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

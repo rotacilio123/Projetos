@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    box-shadow: 0 0.5px 15px #000;
+}
+.breadcrumb{
+    position: fixed;
+    top: 51px;
+    left: 250px;
+    right: 0;
+    z-index: 1;
+}
+.conteudo{
+    position: absolute;
+    left: 264px;
+    top: 102px;
+    right: 14px;
+}
+i{
+    padding: 0 10px 0 0;
+}
+ol.breadcrumb > li > i,
+ol.breadcrumb > li > a > i,
+.toolbar > ul > li > a > i{
+    padding: 0 5px 0 0;
+}
+.panel-heading{
+    position: relative;
+}
+.toolbar{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+.nav > li > a {
+    padding: 9px 15px;
+}
+table > tbody > tr:hover{
+    cursor: pointer;
+}
+select[multiple]{
+    height: 200px;
+}
+.panel-footer > .form-group{
+    margin-bottom: 0;
+}
+.buttons-multiselect{
+    margin-top: 4.5%;
+}
+.link-center{
+    display: block;
+    text-align: center;
+}
+.panel-body{
+    position: relative;
+}
+.image-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #0e86ef;
+    height: 300px;
+    width: 250px;
+}
+.modal-dialog{
+	width: 75%;
+}

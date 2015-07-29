@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/layout/main.xhtml">
+        <ui:define name="breadcrumb">
+            <h:form>
+                <ol class="breadcrumb">
+                    <li><h:commandLink action="/restrito/principal"><i class="fa fa-home"></i>Home</h:commandLink></li>
+                    <li><i class="fa fa-list-alt"></i>Cadastros</li>
+                    <li><i class="fa fa-wrench"></i>Linhas</li>
+                    <li><i class="fa fa-pencil"></i>Update</li>
+                </ol>
+            </h:form>
+        </ui:define>
+        <ui:define name="titulo">Atualização de Linhas</ui:define>
+        <ui:define name="actions">
+            <h:form>
+                <ul class="nav nav-pills">
+                    <li><h:commandLink action="/restrito/linhas/index"><i class="fa fa-bars"></i> Listar</h:commandLink></li>
+                    <li><h:commandLink action="/restrito/linhas/create"><i class="fa fa-plus"></i> Novo</h:commandLink></li>
+                    <li>
+                        <h:commandLink action="#{linhaBean.excluir()}" onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                return false;">
+                                <i class="fa fa-remove"></i> Excluir
+                                <f:param name="linh_id" value="#{linhaBean.linha.id}" />
+                        </h:commandLink></li>
+                </ul>
+            </h:form>
+        </ui:define>
+        <ui:define name="corpo">
+            <ui:include src="_form.xhtml" />
+        </ui:define>
+    </ui:composition>
+</html>

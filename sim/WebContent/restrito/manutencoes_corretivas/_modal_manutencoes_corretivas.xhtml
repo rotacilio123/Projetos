@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition>
+	<div class="modal fade bs-example-modal-lg"
+		id="modalManutencoesCorretivas" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Listagem de
+						Manutenções Corretivas</h4>
+				</div>
+				<div class="modal-body">
+					<h:form id="form-listagem-corretivas">
+						<h:dataTable
+							value="#{manutencaoCorretivaBean.manutencoesCorretivas}" var="mc"
+							styleClass="table table-striped table-hover">
+							<h:column>
+								<f:facet name="header">Date de Abertura</f:facet>
+								<h:outputText value="#{mc.dataAbertura}">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Solicitante</f:facet>
+								<h:outputText value="#{mc.solicitante.nome}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Problema</f:facet>
+								<h:outputText value="#{mc.problema}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Setor Responsável</f:facet>
+								<h:outputText value="#{mc.setor.nome}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Status</f:facet>
+								<h:outputText value="#{mc.status.descricao}" />
+							</h:column>
+							<h:column>
+								<sec:ifAnyGranted roles="ROLE_TECNICO">
+									<h:commandLink action="/restrito/empresas/index" title="Empresas" value="Empresas" />
+								</sec:ifAnyGranted>
+							</h:column>
+						</h:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui:composition>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/layout/main.xhtml">
+        <ui:define name="breadcrumb">
+            <h:form>
+                <ol class="breadcrumb">
+                    <li><h:commandLink action="/restrito/principal"><i class="fa fa-home"></i>Home</h:commandLink></li>
+                    <li><i class="fa fa-list-alt"></i>Cadastros</li>
+                    <li><i class="fa fa-wrench"></i>Postos</li>
+                    <li><i class="fa fa-bars"></i>Listagem</li>
+                </ol>
+            </h:form>
+        </ui:define>
+        <ui:define name="titulo">Listagem de Postos</ui:define>
+        <ui:define name="actions">
+            <h:form>
+                <ul class="nav nav-pills">
+                    <li><h:commandLink action="/restrito/postos/create"><i class="fa fa-plus"></i> Novo</h:commandLink></li>
+                    <li><h:outputLink styleClass="btn-search-grid"><i class="fa fa-search"></i> Buscar</h:outputLink></li>
+                </ul>
+            </h:form>
+        </ui:define>
+        <ui:define name="corpo">
+            <div class="panel-body">
+                <p:messages autoUpdate="true" closable="true" />
+                <div id="areaBusca">
+                    <ui:include src="_search.xhtml" />
+                </div>
+                <h:form id="form-listagem">
+                    <h:dataTable value="#{postoBean.postos}" var="posto" styleClass="table table-striped table-hover">
+                        <h:column headerClass="col-lg-3 col-md-3">
+                            <f:facet name="header">Linha</f:facet>
+                            <h:outputText value="#{posto.linha.nome}" />
+                        </h:column>
+                        <h:column headerClass="col-lg-8 col-md-8">
+                            <f:facet name="header">Descrição</f:facet>
+                            <h:outputText value="#{posto.descricao}" />
+                        </h:column>
+                        <h:column headerClass="col-lg-1 col-md-1">
+                            <h:commandLink action="/restrito/postos/update" title="Editar">
+                                <h:graphicImage library="img" name="editar.png" width="22" height="22" />
+                                <f:param name="post_id" value="#{posto.id}" />
+                            </h:commandLink>
+                            <p:spacer width="10" />
+                            <h:commandLink action="#{postoBean.excluirAjax()}" title="Excluir"
+                                           onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                                       return false;">
+                                <f:ajax execute="@this" render=":form-listagem" />
+                                <h:graphicImage library="img" name="excluir.png" width="22" height="22" />
+                                <f:param name="post_id" value="#{posto.id}" />
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

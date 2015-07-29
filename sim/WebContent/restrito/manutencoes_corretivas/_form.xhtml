@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+        <h:form styleClass="form-horizontal">
+            <div class="panel-body">
+                <p:messages autoUpdate="true" closable="true" />
+                <h:inputHidden value="#{manutencaoCorretivaBean.manutencaoCorretiva.id}" />
+                <h:inputHidden value="#{manutencaoCorretivaBean.manutencaoCorretiva.maquina}" converter="maquinaConverter" />
+                <h:inputHidden value="#{manutencaoCorretivaBean.manutencaoCorretiva.solicitante}" converter="usuarioConverter" />
+                <legend>Informações do Equipamento</legend>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_modelo" value="Modelo:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="maqu_modelo" value="#{manutencaoCorretivaBean.manutencaoCorretiva.maquina.modelo}" styleClass="form-control" readonly="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_numero_de_serie" value="Número de Série:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="maqu_numero_de_serie" value="#{manutencaoCorretivaBean.manutencaoCorretiva.maquina.numeroDeSerie}" styleClass="form-control" readonly="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_descricao" value="Descrição:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="maqu_descricao" value="#{manutencaoCorretivaBean.manutencaoCorretiva.maquina.descricao}" styleClass="form-control" readonly="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maqu_localizacao" value="Localização:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="maqu_localizacao" value="#{manutencaoCorretivaBean.manutencaoCorretiva.maquina.posto.descricao} (#{manutencaoCorretivaBean.manutencaoCorretiva.maquina.posto.linha.nome})" styleClass="form-control" readonly="true" />
+                    </div>
+                </div>
+                <legend>Dados da Solicitação</legend>
+                <div class="form-group">
+                    <h:outputLabel for="maco_usua_id_solicitante" value="Solicitante:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputText id="maco_usua_id_solicitante" value="#{manutencaoCorretivaBean.manutencaoCorretiva.solicitante.nome}" readonly="true"
+                                     styleClass="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="manu_seto_id" value="Setor:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:selectOneMenu id="manu_seto_id" value="#{manutencaoCorretivaBean.manutencaoCorretiva.setor}" converter="setorConverter"
+                                         required="true"
+                                         requiredMessage="O setor é obrigatório!"
+                                         styleClass="form-control">
+                            <f:selectItem itemLabel="-- Selecione um Item --" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{manutencaoCorretivaBean.setores}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="maco_problema" value="Problema:" styleClass="control-label col-lg-2" />
+                    <div class="col-lg-7">
+                        <h:inputTextarea id="maco_problema" value="#{manutencaoCorretivaBean.manutencaoCorretiva.problema}" 
+                                         required="true" 
+                                         requiredMessage="O problema é obrigatório!"
+                                         styleClass="form-control"
+                                         pt:placeholder="Informe o problema ocorrido"
+                                         rows="7" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="pull-right">
+                            <h:commandButton action="#{manutencaoCorretivaBean.salvarManutencaoCorretiva()}" value="Salvar"
+                                             styleClass="btn btn-primary"/>
+                            <p:spacer width="10" />
+                            <h:commandButton action="/restrito/manutencoes_corretivas/index" value="Cancelar" immediate="true" styleClass="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:composition>
+</html>
