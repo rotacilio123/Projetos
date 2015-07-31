@@ -47,9 +47,6 @@
 								<h:outputText value="#{mc.status.descricao}" />
 							</h:column>
 							<h:column>
-								<sec:ifAnyGranted roles="ROLE_TECNICO">
-									<h:commandLink action="/restrito/empresas/index" title="Empresas" value="Empresas" />
-								</sec:ifAnyGranted>
 							</h:column>
 						</h:dataTable>
 					</h:form>

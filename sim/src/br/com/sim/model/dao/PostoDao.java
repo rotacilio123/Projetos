@@ -82,4 +82,11 @@ public class PostoDao {
         return postos;
     }
 
+	public List<Posto> listarPorLinha(Linha linha) {
+		// TODO Auto-generated method stub
+        TypedQuery<Posto> query = em.createQuery("select p from Posto p where p.linha = :pLinha order by p.id", Posto.class);
+        query.setParameter("pLinha", linha);
+        return query.getResultList();
+	}
+
 }

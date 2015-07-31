@@ -5,6 +5,7 @@
  */
 package br.com.sim.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,14 +14,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.sim.model.bean.Linha;
 import br.com.sim.model.bean.ManutencaoCorretiva;
 import br.com.sim.model.bean.Maquina;
+import br.com.sim.model.bean.Posto;
 import br.com.sim.model.bean.Setor;
+import br.com.sim.rn.LinhaRn;
 import br.com.sim.rn.ManutencaoCorretivaRn;
 import br.com.sim.rn.MaquinaRn;
+import br.com.sim.rn.PostoRn;
 import br.com.sim.rn.SetorRn;
 import br.com.sim.rn.StatusRn;
 import br.com.sim.util.ContextoUtil;
@@ -37,8 +43,11 @@ public class ManutencaoCorretivaBean {
 	private List<Maquina> maquinas;
     private List<Setor> setores;
     private List<ManutencaoCorretiva> manutencoesCorretivas;
-    private Maquina maquina;
+    private List<Linha> linhas;
+    private List<Posto> postos = new ArrayList<Posto>();
+    private Maquina maquina = new Maquina();
     private ManutencaoCorretiva manutencaoCorretiva = new ManutencaoCorretiva();
+    private Linha linha;
     
     @PostConstruct
     public void init() {
@@ -66,6 +75,17 @@ public class ManutencaoCorretivaBean {
         }
         return setores;
     }
+    
+    public List<Linha> getLinhas() {
+    	if (linhas == null) {
+    		linhas = new LinhaRn().listar();
+    	}
+		return linhas;
+	}
+    
+    public List<Posto> getPostos() {
+		return postos;
+	}
 
     public Maquina getMaquina() {
         return maquina;
@@ -85,6 +105,14 @@ public class ManutencaoCorretivaBean {
     
     public List<ManutencaoCorretiva> getManutencoesCorretivas() {
 		return manutencoesCorretivas;
+	}
+    
+    public Linha getLinha() {
+		return linha;
+	}
+    
+    public void setLinha(Linha linha) {
+		this.linha = linha;
 	}
     
     public String salvarManutencaoCorretiva() {
@@ -116,5 +144,22 @@ public class ManutencaoCorretivaBean {
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
     	}
     	return null;
+    }
+    
+    public String filtrarMaquinas() {
+    	maquinas = new MaquinaRn().filtrarMaquinas(maquina.getModelo(), maquina.getDescricao(), linha, maquina.getPosto());
+    	return null;
+    }
+    
+    public String limparCampos() {
+    	maquina = new Maquina();
+    	linha = new Linha();
+    	maquinas = null;
+    	return null;
+    }
+    
+    public void carregarPostos(ValueChangeEvent evt) {
+    	Linha linha = (Linha) evt.getNewValue();
+    	postos = new PostoRn().listarPorLinha(linha);
     }
 }

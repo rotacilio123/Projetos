@@ -46,4 +46,9 @@ public class PostoRn {
     public List<Posto> filtrarPostos(String descricao, Linha linha) {
         return postoDao.filtrarPostos(descricao, linha);
     }
+
+	public List<Posto> listarPorLinha(Linha linha) {
+		// TODO Auto-generated method stub
+		return postoDao.listarPorLinha(linha);
+	}
 }

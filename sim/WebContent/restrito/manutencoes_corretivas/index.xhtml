@@ -34,9 +34,9 @@ and open the template in the editor.
 	<ui:define name="corpo">
 		<div class="panel-body">
 			<p:messages autoUpdate="true" closable="true" />
-			<!--                <div id="areaBusca">
-                                    <ui:include src="_search.xhtml" />
-                                </div>-->
+			<div id="areaBusca">
+				<ui:include src="_search.xhtml" />
+            </div>
 			<h:form id="form-listagem">
 				<h:dataTable value="#{manutencaoCorretivaBean.maquinas}"
 					var="maquina" styleClass="table table-striped table-hover">

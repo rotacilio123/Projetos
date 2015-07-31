@@ -1,12 +1,12 @@
 package br.com.sim.rn;
 
-import br.com.sim.model.bean.Familia;
 import java.util.List;
 
+import br.com.sim.model.bean.Familia;
+import br.com.sim.model.bean.Linha;
 import br.com.sim.model.bean.Maquina;
 import br.com.sim.model.bean.Posto;
 import br.com.sim.model.dao.MaquinaDao;
-import java.util.Date;
 
 public class MaquinaRn {
 
@@ -51,7 +51,7 @@ public class MaquinaRn {
         return maquinaDao.listarMaquinasPorPosto(posto);
     }
     
-    public void criarManutencaoPreventiva(Maquina maquina) {
-        
+    public List<Maquina> filtrarMaquinas(String modelo, String descricao, Linha linha, Posto posto) {
+    	return maquinaDao.filtrarMaquinas(modelo, descricao, linha, posto);
     }
 }
