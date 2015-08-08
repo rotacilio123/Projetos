@@ -6,6 +6,8 @@
 package br.com.sim.model.bean;
 
 import br.com.sim.util.SequencesName;
+
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +24,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "empresas")
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = SequencesName.SEQUENCE_NAME_EMPRESAS, sequenceName = SequencesName.SEQUENCE_NAME_EMPRESAS)
-public class Empresa {
+public class Empresa implements Serializable {
     
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1743237421458920540L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SequencesName.SEQUENCE_NAME_EMPRESAS)
     @Column(name = "empr_id")
     private Integer id;

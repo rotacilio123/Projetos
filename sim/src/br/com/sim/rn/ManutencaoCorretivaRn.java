@@ -8,6 +8,8 @@ package br.com.sim.rn;
 import br.com.sim.model.bean.ManutencaoCorretiva;
 import br.com.sim.model.bean.Maquina;
 import br.com.sim.model.dao.ManutencaoCorretivaDao;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +26,10 @@ public class ManutencaoCorretivaRn {
 
     public void salvar(ManutencaoCorretiva t) {
         t.setProblema(t.getProblema().toUpperCase());
+        if (t.getId() == null || t.getId() == 0) {
+        	t.setStatus(new StatusRn().carregarPorId(1));
+        	t.setDataAbertura(new Date());
+        }
         manutencaoCorretivaDao.salvar(t);
     }
 

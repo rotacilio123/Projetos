@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
 	<div class="modal fade bs-example-modal-lg"
 		id="modalManutencoesCorretivas" tabindex="-1" role="dialog"
@@ -47,6 +48,15 @@
 								<h:outputText value="#{mc.status.descricao}" />
 							</h:column>
 							<h:column>
+								<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR,ROLE_LIDER_DE_LINHA">
+									<h:commandLink title="Editar"
+										action="/restrito/manutencoes_corretivas/update"
+										rendered="#{mc.status.id == 1 or sec:ifAnyGranted('ROLE_ADMINISTRADOR')}">
+										<h:graphicImage library="img" name="editar.png" width="22"
+											height="22" />
+										<f:param name="maco_manu_id" value="#{mc.id}" />
+									</h:commandLink>
+								</sec:ifAnyGranted>
 							</h:column>
 						</h:dataTable>
 					</h:form>

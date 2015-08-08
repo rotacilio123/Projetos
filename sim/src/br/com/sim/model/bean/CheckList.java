@@ -6,6 +6,8 @@
 package br.com.sim.model.bean;
 
 import br.com.sim.util.SequencesName;
+
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,9 +26,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "check_list")
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = SequencesName.SEQUENCE_NAME_CHECK_LIST, sequenceName = SequencesName.SEQUENCE_NAME_CHECK_LIST)
-public class CheckList {
+public class CheckList implements Serializable {
     
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4747911462799713555L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SequencesName.SEQUENCE_NAME_CHECK_LIST)
     @Column(name = "chli_id")
     private Integer id;
